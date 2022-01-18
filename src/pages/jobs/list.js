@@ -5,6 +5,12 @@ const jobs = [
     rssUrl: 'url',
     schedule: 'schedule',
     status: false,
+  },
+  {
+    id: 2,
+    rssUrl: 'url2',
+    schedule: 'schedule2',
+    status: true,
   }
 ]
 
@@ -60,7 +66,7 @@ export function JobList() {
                       <div className="text-sm text-gray-900">{job.schedule}</div>
                     </td>
                     <td className="px-6 text-left py-4 whitespace-nowrap">
-                      <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-black-800">
+                      <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full text-black-800 ${job.status ? 'bg-green-100' : 'bg-red-100'}`}>
                         {job.status ? 'Active' : 'Inactive'}
                       </span>
                     </td>
