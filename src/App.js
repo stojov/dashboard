@@ -1,10 +1,10 @@
 import './App.css';
-import { JobList } from './pages/jobs';
+import { JobForm } from './pages/jobs';
 
 function App() {
   return (
     <div className="App">
-      <JobList />
+      <JobForm />
     </div>
   );
 }
