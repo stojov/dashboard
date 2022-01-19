@@ -1,10 +1,10 @@
 import './App.css';
-import { JobForm } from './pages/jobs';
+import Layout from './pages/Layout';
 
 function App() {
   return (
     <div className="App">
-      <JobForm />
+      <Layout />
     </div>
   );
 }
