@@ -16,7 +16,12 @@ const jobs = [
 
 export function JobList() {
   return (
-    <div className="flex flex-col">
+    <div>
+      <div className="flex flex-row-reverse w-full py-4">
+        <button type="button" className="shadow bg-green-500 hover:bg-green-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+          Add
+        </button>
+      </div>
       <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
           <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
