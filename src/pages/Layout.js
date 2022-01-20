@@ -1,12 +1,17 @@
+import { Route, Routes } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import { JobList } from "./jobs";
+import { JobForm, JobList } from "./jobs";
 
-export default function Full() {
+export default function Layout() {
     return (
         <div className="w-full h-full flex flex-col sm:flex-row overflow-hidden">
             <Navbar />
             <main role="main" className="w-full h-full p-3 content-center overflow-auto">
-                <JobList />
+                <Routes>
+                    <Route path='/' element={<JobList />}></Route>
+                    <Route path='/job/form' element={<JobForm />}></Route>
+                </Routes>
+                
             </main>
         </div>
     )
