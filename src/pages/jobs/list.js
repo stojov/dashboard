@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom"
+
 /* This example requires Tailwind CSS v2.0+ */
 const jobs = [
   {
@@ -15,10 +17,12 @@ const jobs = [
 ]
 
 export function JobList() {
+  const navigate = useNavigate()
+
   return (
-    <div>
+    <div className="w-full">
       <div className="flex flex-row-reverse w-full py-4">
-        <button type="button" className="shadow bg-green-500 hover:bg-green-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+        <button type="button" onClick={() => navigate('/job/form')} className="shadow bg-green-500 hover:bg-green-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
           Add
         </button>
       </div>
