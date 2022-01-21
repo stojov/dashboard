@@ -1,4 +1,3 @@
-import { InfoCircleOutlined } from "@ant-design/icons/lib/icons";
 import React, { useCallback, useRef, useState } from "react"
 import { useForm } from "react-hook-form"
 import Cron from 'react-js-cron'
@@ -6,7 +5,10 @@ import "antd/dist/antd.css";
 
 export function JobForm() {
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const onSubmit = data => console.log(data);
+  const onSubmit = data => {
+    console.log(value)
+    console.log(data);
+  }
   const inputRef = useRef(null)
   const defaultValue = '30 5 * * 1,6'
   const [value, setValue] = useState(defaultValue)
@@ -39,18 +41,12 @@ export function JobForm() {
           </label>
         </div>
         <div>
-          <Cron value={value} setValue={customSetValue} onError={onError} />
-
-          <div>
-            <InfoCircleOutlined style={{ marginRight: 5 }} />
-            <span style={{ fontSize: 12 }}>
-              Double click on a dropdown option to automatically select / unselect a
-              periodicity
-            </span>
+          <div className="flex">
+            <Cron value={value} setValue={customSetValue} onError={onError} />
           </div>
 
-          <p style={{ marginTop: 20 }}>
-            Error: {error ? error.description : 'undefined'}
+          <p className="text-red-500">
+            {error ? error.description : ''}
           </p>
         </div>
       </div>
