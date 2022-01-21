@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './pages/Layout';
 import { JobList, JobForm} from './pages/jobs'
 
@@ -7,6 +7,7 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
+        <Route path='/' element={<Navigate to='/job' />} ></Route>
           <Route path='/' element={<Layout />} >
             <Route path='job' element={<JobList />}></Route>
             <Route path='job/form' element={<JobForm />}></Route>

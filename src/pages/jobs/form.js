@@ -22,9 +22,10 @@ export function JobForm() {
   const [error, onError] = useState()
 
   return (
-    <form className="w-1/2" onSubmit={handleSubmit(onSubmit)}>
-      <div className="md:flex md:items-center mb-6">
-        <div className="md:w-1/3">
+    <form className="w-full border mx-auto p-4" onSubmit={handleSubmit(onSubmit)}>
+      <div className="mb-4"><h2 className="text-4xl font-medium leading-tight mt-0 text-black-600">Schedule a job</h2></div>
+      <div className="flex items-center mb-6">
+        <div className="">
           <label className="block text-gray-800 font-bold md:text-right mb-1 md:mb-0 pr-4">
             Rss Url:
           </label>
@@ -34,9 +35,9 @@ export function JobForm() {
           {errors.rssUrl?.type === 'required' && <div className="text-red-500 text-left">This field is required</div>}
         </div>
       </div>
-      <div className="md:flex md:items-center mb-6 py-4">
-        <div className="md:w-1/3">
-          <label className="block text-gray-800 font-bold md:text-right mb-1 md:mb-0 pr-4">
+      <div className="flex items-center mb-6 py-4">
+        <div className="">
+          <label className="block text-gray-800 font-bold md:text-right pr-4">
             Schedule:
           </label>
         </div>
@@ -50,11 +51,10 @@ export function JobForm() {
           </p>
         </div>
       </div>
-      <div className="md:flex md:items-center">
-        <div className="md:w-1/3"></div>
-        <div className="md:w-2/3">
+      <div className="flex items-center">
+        <div className="">
           <button type="submit" className="shadow bg-green-500 hover:bg-green-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
-            Submit
+            Add Job
           </button>
         </div>
       </div>
