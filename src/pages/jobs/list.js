@@ -1,21 +1,15 @@
 import { useQuery } from "react-query"
 import { useNavigate } from "react-router-dom"
+import Alert from "../../components/Alert"
 import { fetchJobs } from "./api"
 
 export function JobList() {
   const navigate = useNavigate()
   const { status, data, error } = useQuery('todos', fetchJobs)
 
-  if (status === 'loading') {
-    return <span>Loading...</span>
-  }
-
-  if (status === 'error') {
-    return <span>Error: {error.message}</span>
-  }
-
   return (
     <div className="w-full">
+      {status === 'error' && <Alert message={error.message} />}
       <div className="flex flex-row-reverse w-full py-4">
         <button type="button" onClick={() => navigate('/job/form')} className="shadow bg-green-500 hover:bg-green-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
           Add
