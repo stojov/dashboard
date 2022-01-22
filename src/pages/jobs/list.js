@@ -1,23 +1,18 @@
+import { useQuery } from "react-query"
 import { useNavigate } from "react-router-dom"
-
-/* This example requires Tailwind CSS v2.0+ */
-const jobs = [
-  {
-    id: 1,
-    rssUrl: 'url',
-    schedule: 'schedule',
-    status: false,
-  },
-  {
-    id: 2,
-    rssUrl: 'url2',
-    schedule: 'schedule2',
-    status: true,
-  }
-]
+import { fetchJobs } from "./api"
 
 export function JobList() {
   const navigate = useNavigate()
+  const { status, data, error } = useQuery('todos', fetchJobs)
+
+  if (status === 'loading') {
+    return <span>Loading...</span>
+  }
+
+  if (status === 'error') {
+    return <span>Error: {error.message}</span>
+  }
 
   return (
     <div className="w-full">
@@ -62,7 +57,7 @@ export function JobList() {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {jobs.map((job, index) => (
+                {data.map((job, index) => (
                   <tr key={index}>
                     <td className="px-6 text-left py-4 whitespace-nowrap">
                       {index + 1}
