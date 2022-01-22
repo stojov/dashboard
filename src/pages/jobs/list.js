@@ -83,15 +83,18 @@ export function JobList() {
                       </div>
                     </td>
                     <td className="px-6 text-left py-4 whitespace-nowrap">
-                      <div className="flex">
-                        <div className="form-check form-switch">
-                          <input
-                            className="form-check-input appearance-none w-9 rounded-full float-left h-5 align-top bg-white bg-no-repeat bg-contain bg-gray-300 focus:outline-none cursor-pointer shadow-sm"
-                            type="checkbox"
-                            role="switch"
-                            id="flexSwitchCheckDefault"
-                          />
-                        </div>
+                      <div className="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+                        <input
+                          onChange={() => console.log("Changed")}
+                          type="checkbox"
+                          name="toggle"
+                          id="toggle"
+                          className="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
+                        />
+                        <label
+                          for="toggle"
+                          className="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"
+                        ></label>
                       </div>
                     </td>
                     <td className="px-6 text-left py-4 cursor-pointer">
