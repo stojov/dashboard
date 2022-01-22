@@ -4,6 +4,7 @@ import Alert from "../../components/Alert"
 import { deleteJob, fetchJobs } from "./api"
 import cronstrue from "cronstrue"
 import { TrashIcon } from "@heroicons/react/outline"
+import { useState } from "react"
 
 export function JobList() {
   const navigate = useNavigate()
@@ -11,6 +12,7 @@ export function JobList() {
     retry: false,
   })
   const queryClient = useQueryClient()
+  const [checked, setChecked] = useState(false)
 
   const jobDeleteMutation = useMutation(deleteJob, {
     onSuccess: () => {
@@ -83,18 +85,17 @@ export function JobList() {
                       </div>
                     </td>
                     <td className="px-6 text-left py-4 whitespace-nowrap">
-                      <div className="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+                      <div
+                        onClick={() => setChecked(!checked)}
+                        className="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in"
+                      >
                         <input
                           onChange={() => console.log("Changed")}
                           type="checkbox"
-                          name="toggle"
-                          id="toggle"
-                          className="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
+                          className="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-2 appearance-none cursor-pointer delay-50"
+                          checked={checked}
                         />
-                        <label
-                          for="toggle"
-                          className="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"
-                        ></label>
+                        <label className="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
                       </div>
                     </td>
                     <td className="px-6 text-left py-4 cursor-pointer">
