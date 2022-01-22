@@ -1,19 +1,22 @@
-import {
-  useQuery,
-  useQueryClient,
-  useQueryErrorResetBoundary,
-} from "react-query"
+import { useMutation, useQuery, useQueryClient } from "react-query"
 import { useNavigate } from "react-router-dom"
 import Alert from "../../components/Alert"
-import { fetchJobs } from "./api"
+import { deleteJob, fetchJobs } from "./api"
+import cronstrue from "cronstrue"
+import { TrashIcon } from "@heroicons/react/outline"
 
 export function JobList() {
   const navigate = useNavigate()
   const { isLoading, isError, data, error } = useQuery("jobs", fetchJobs, {
     retry: false,
   })
-  const { reset } = useQueryErrorResetBoundary()
   const queryClient = useQueryClient()
+
+  const jobDeleteMutation = useMutation(deleteJob, {
+    onSuccess: () => {
+      queryClient.invalidateQueries()
+    },
+  })
 
   return (
     <div className="w-full">
@@ -76,17 +79,28 @@ export function JobList() {
 
                     <td className="px-6 text-left py-4 whitespace-nowrap">
                       <div className="text-sm text-gray-900">
-                        {job.schedule}
+                        {cronstrue.toString(job.schedule)}
                       </div>
                     </td>
                     <td className="px-6 text-left py-4 whitespace-nowrap">
-                      <span
-                        className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full text-black-800 ${
-                          job.active ? "bg-green-100" : "bg-red-100"
-                        }`}
-                      >
-                        {job.active ? "Active" : "Inactive"}
-                      </span>
+                      <div className="flex">
+                        <div className="form-check form-switch">
+                          <input
+                            className="form-check-input appearance-none w-9 rounded-full float-left h-5 align-top bg-white bg-no-repeat bg-contain bg-gray-300 focus:outline-none cursor-pointer shadow-sm"
+                            type="checkbox"
+                            role="switch"
+                            id="flexSwitchCheckDefault"
+                          />
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-6 text-left py-4 cursor-pointer">
+                      <TrashIcon
+                        className="w-7 sm:mx-2 mx-4 inline"
+                        onClick={() => {
+                          jobDeleteMutation.mutate(job.id)
+                        }}
+                      />
                     </td>
                   </tr>
                 ))}
