@@ -1,19 +1,29 @@
-import { useQuery, useQueryClient, useQueryErrorResetBoundary } from "react-query"
+import {
+  useQuery,
+  useQueryClient,
+  useQueryErrorResetBoundary,
+} from "react-query"
 import { useNavigate } from "react-router-dom"
 import Alert from "../../components/Alert"
 import { fetchJobs } from "./api"
 
 export function JobList() {
   const navigate = useNavigate()
-  const { isLoading, isError, data, error } = useQuery('jobs', fetchJobs, {retry: false})
-  const { reset } = useQueryErrorResetBoundary();
+  const { isLoading, isError, data, error } = useQuery("jobs", fetchJobs, {
+    retry: false,
+  })
+  const { reset } = useQueryErrorResetBoundary()
   const queryClient = useQueryClient()
 
   return (
     <div className="w-full">
       {isError && <Alert message={error.message} />}
       <div className="flex flex-row-reverse w-full py-4">
-        <button type="button" onClick={() => navigate('/job/form')} className="shadow bg-green-500 hover:bg-green-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+        <button
+          type="button"
+          onClick={() => navigate("/job/form")}
+          className="shadow bg-green-500 hover:bg-green-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+        >
           Add
         </button>
       </div>
@@ -59,15 +69,23 @@ export function JobList() {
                       {index + 1}
                     </td>
                     <td className="px-6 text-left py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">{job.rssUrl}</div>
+                      <div className="text-sm font-medium text-gray-900">
+                        {job.rssUrl}
+                      </div>
                     </td>
 
                     <td className="px-6 text-left py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{job.schedule}</div>
+                      <div className="text-sm text-gray-900">
+                        {job.schedule}
+                      </div>
                     </td>
                     <td className="px-6 text-left py-4 whitespace-nowrap">
-                      <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full text-black-800 ${job.active ? 'bg-green-100' : 'bg-red-100'}`}>
-                        {job.active ? 'Active' : 'Inactive'}
+                      <span
+                        className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full text-black-800 ${
+                          job.active ? "bg-green-100" : "bg-red-100"
+                        }`}
+                      >
+                        {job.active ? "Active" : "Inactive"}
                       </span>
                     </td>
                   </tr>
