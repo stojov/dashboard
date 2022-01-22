@@ -2,13 +2,30 @@ import React, { useCallback, useRef, useState } from "react"
 import { useForm } from "react-hook-form"
 import Cron from 'react-js-cron'
 import "antd/dist/antd.css";
+import { useMutation } from "react-query";
+import { postJobs } from "./api";
+import { useNavigate } from "react-router-dom";
+import Alert from "../../components/Alert";
 
 export function JobForm() {
   const { register, handleSubmit, formState: { errors } } = useForm();
+  const navigate = useNavigate()
+  const mutation = useMutation(postJobs)
+
   const onSubmit = data => {
-    console.log(value)
-    console.log(data);
+    mutation.mutate(
+      { ...data, schedule: value },
+      {
+        onSuccess: (data) => {
+          navigate('/job')
+        },
+        onError: (error) => {
+          setPostError(error)
+        }
+      }
+    )
   }
+
   const inputRef = useRef(null)
   const defaultValue = '30 5 * * 1,6'
   const [value, setValue] = useState(defaultValue)
@@ -20,9 +37,11 @@ export function JobForm() {
     [inputRef]
   )
   const [error, onError] = useState()
+  const [postError, setPostError] = useState()
 
   return (
     <form className="w-full border mx-auto p-4" onSubmit={handleSubmit(onSubmit)}>
+      {postError && <Alert message={postError} />}
       <div className="mb-4"><h2 className="text-4xl font-medium leading-tight mt-0 text-black-600">Schedule a job</h2></div>
       <div className="flex items-center mb-6">
         <div className="">

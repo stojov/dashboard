@@ -1,4 +1,5 @@
-import {CogIcon, HomeIcon} from '@heroicons/react/outline'
+import { HomeIcon } from '@heroicons/react/outline'
+import { Link } from 'react-router-dom'
 
 export default function Navbar() {
     return (
@@ -6,16 +7,10 @@ export default function Navbar() {
             <div className="sticky top-0 p-4 bg-gray-100 rounded-xl w-full h-full">
                 <ul className="flex sm:flex-col overflow-hidden content-center justify-between">
                     <li className="py-2 hover:bg-indigo-300 rounded">
-                        <a className="truncate" href="#">
+                        <Link className="truncate" to="/job">
                             <HomeIcon className="w-7 sm:mx-2 mx-4 inline" />
-                            <span className="hidden sm:inline">Home</span>
-                        </a>
-                    </li>
-                    <li className="py-2 hover:bg-indigo-300 rounded">
-                        <a className="truncate" href="#">
-                            <CogIcon className="w-7 sm:mx-2 mx-4 inline" />
-                            <span className="hidden sm:inline">Settings</span>
-                        </a>
+                            <span className="hidden sm:inline">Jobs</span>
+                        </Link>
                     </li>
                 </ul>
             </div>

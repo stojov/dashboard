@@ -1,4 +1,4 @@
-const API_URL = process.env.API_URL ?? 'https://localhost:5000'
+const API_URL = process.env.API_URL ?? 'http://localhost:5000/api'
 
 export async function request(endpoint, method, data) {
     let options = {
@@ -8,10 +8,18 @@ export async function request(endpoint, method, data) {
         },
     }
     if (data) {
-        options = { ...options, data: JSON.stringify(data) }
+        options = { ...options, body: JSON.stringify(data) }
     }
 
-    const res = await fetch(`${API_URL}/${endpoint}`, options)
-    console.log('Response->', res)
-    return res.json()
+    const response = await fetch(`${API_URL}/${endpoint}`, options)
+    const isJson = response.headers.get('content-type')?.includes('application/json')
+    const responseData = isJson ? await response.json() : null
+
+    if (!response.ok) {
+        const error = (responseData && responseData.message) || response.statusText
+        return Promise.reject(error)
+    }
+
+    return Promise.resolve(responseData)
+
 }
