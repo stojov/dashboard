@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "react-query"
 import { useNavigate } from "react-router-dom"
 import Alert from "../../components/Alert"
-import { deleteJob, fetchJobs } from "./api"
+import { deleteJob, fetchJobs, updateJobStatus } from "./api"
 import cronstrue from "cronstrue"
 import { TrashIcon } from "@heroicons/react/outline"
 import { useState } from "react"
@@ -15,6 +15,12 @@ export function JobList() {
   const [checked, setChecked] = useState(false)
 
   const jobDeleteMutation = useMutation(deleteJob, {
+    onSuccess: () => {
+      queryClient.invalidateQueries()
+    },
+  })
+
+  const jobStatusUpdateMutation = useMutation(updateJobStatus, {
     onSuccess: () => {
       queryClient.invalidateQueries()
     },
@@ -86,14 +92,19 @@ export function JobList() {
                     </td>
                     <td className="px-6 text-left py-4 whitespace-nowrap">
                       <div
-                        onClick={() => setChecked(!checked)}
+                        onClick={() =>
+                          jobStatusUpdateMutation.mutate({
+                            id: job.id,
+                            status: !job.active,
+                          })
+                        }
                         className="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in"
                       >
                         <input
                           onChange={() => console.log("Changed")}
                           type="checkbox"
                           className="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-2 appearance-none cursor-pointer delay-50"
-                          checked={checked}
+                          checked={job.active}
                         />
                         <label className="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
                       </div>
