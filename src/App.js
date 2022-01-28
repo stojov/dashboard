@@ -14,6 +14,7 @@ function App() {
             <Route path="/" element={<Layout />}>
               <Route path="job" element={<JobList />}></Route>
               <Route path="job/form" element={<JobForm />}></Route>
+              <Route path="job/edit/:id" element={<JobForm />}></Route>
             </Route>
           </Routes>
         </BrowserRouter>

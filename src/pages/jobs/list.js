@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import Alert from "../../components/Alert"
 import { deleteJob, fetchJobs, updateJobStatus } from "./api"
 import cronstrue from "cronstrue"
-import { TrashIcon } from "@heroicons/react/outline"
+import { PencilIcon, TrashIcon } from "@heroicons/react/outline"
 import { useState } from "react"
 
 export function JobList() {
@@ -12,7 +12,6 @@ export function JobList() {
     retry: false,
   })
   const queryClient = useQueryClient()
-  const [checked, setChecked] = useState(false)
 
   const jobDeleteMutation = useMutation(deleteJob, {
     onSuccess: () => {
@@ -101,7 +100,7 @@ export function JobList() {
                         className="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in"
                       >
                         <input
-                          onChange={() => console.log("Changed")}
+                          onChange={() => {}}
                           type="checkbox"
                           className="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-2 appearance-none cursor-pointer delay-50"
                           checked={job.active}
@@ -110,6 +109,12 @@ export function JobList() {
                       </div>
                     </td>
                     <td className="px-6 text-left py-4 cursor-pointer">
+                      <PencilIcon
+                        className="w-7 sm:mx-2 mx-4 inline"
+                        onClick={() => {
+                          navigate(`/job/edit/${job.id}`)
+                        }}
+                      />
                       <TrashIcon
                         className="w-7 sm:mx-2 mx-4 inline"
                         onClick={() => {
