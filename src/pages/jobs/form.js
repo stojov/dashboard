@@ -13,7 +13,7 @@ export function JobForm() {
   const mutation = useMutation(postJobs)
 
   const { id } = params
-  const { isLoading, isError, data, error } = useQuery("job", fetchJob(id), {
+  const { data } = useQuery("job", fetchJob(id), {
     retry: false,
   })
 

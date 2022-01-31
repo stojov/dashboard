@@ -4,11 +4,10 @@ import Alert from "../../components/Alert"
 import { deleteJob, fetchJobs, updateJobStatus } from "./api"
 import cronstrue from "cronstrue"
 import { PencilIcon, TrashIcon } from "@heroicons/react/outline"
-import { useState } from "react"
 
 export function JobList() {
   const navigate = useNavigate()
-  const { isLoading, isError, data, error } = useQuery("jobs", fetchJobs, {
+  const { isError, data, error } = useQuery("jobs", fetchJobs, {
     retry: false,
   })
   const queryClient = useQueryClient()

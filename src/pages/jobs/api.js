@@ -4,8 +4,8 @@ export async function fetchJobs() {
   return await request("job")
 }
 
-export async function fetchJob(id) {
-  return await request(`job/${id}`)
+export function fetchJob(id) {
+  return () => request(`job/${id}`)
 }
 
 export async function postJobs(data) {
