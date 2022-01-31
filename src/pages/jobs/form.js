@@ -2,8 +2,8 @@ import React, { useCallback, useRef, useState } from "react"
 import { useForm } from "react-hook-form"
 import Cron from "react-js-cron"
 import "antd/dist/antd.css"
-import { useMutation } from "react-query"
-import { postJobs } from "./api"
+import { useMutation, useQuery } from "react-query"
+import { fetchJob, postJobs } from "./api"
 import { useNavigate, useParams } from "react-router-dom"
 import Alert from "../../components/Alert"
 
@@ -21,8 +21,9 @@ export function JobForm() {
     register,
     handleSubmit,
     formState: { errors },
-    defaultValue = data,
-  } = useForm()
+  } = useForm({
+    defaultValues: data,
+  })
 
   const onSubmit = (data) => {
     mutation.mutate(
@@ -48,7 +49,7 @@ export function JobForm() {
     },
     [inputRef]
   )
-  const [error, onError] = useState()
+  const [cronError, onCronError] = useState()
   const [postError, setPostError] = useState()
 
   return (
@@ -91,10 +92,10 @@ export function JobForm() {
         </div>
         <div>
           <div className="flex">
-            <Cron value={value} setValue={customSetValue} onError={onError} />
+            <Cron value={value} setValue={customSetValue} onError={onCronError} />
           </div>
 
-          <p className="text-red-500">{error ? error.description : ""}</p>
+          <p className="text-red-500">{cronError ? cronError.description : ""}</p>
         </div>
       </div>
       <div className="flex items-center">
