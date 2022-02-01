@@ -1,4 +1,4 @@
-const API_URL = process.env.API_URL ?? "http://localhost:5000/api"
+const { API_URL = "http://localhost:5000/api" } = process.env.API_URL
 
 export async function request(endpoint, method, data) {
   let options = {
