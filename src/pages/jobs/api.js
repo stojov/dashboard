@@ -5,11 +5,18 @@ export async function fetchJobs() {
 }
 
 export function fetchJob(id) {
-  return () => request(`job/${id}`)
+  if (id) {
+    return () => request(`job/${id}`)
+  }
+  return ()=> Promise.resolve({})
 }
 
 export async function postJobs(data) {
   return await request("job", "POST", data)
+}
+
+export async function putJobs(id, data) {
+  return await request(`job/${id}`, "PUT", data)
 }
 
 export async function updateJobStatus({ id, status }) {
