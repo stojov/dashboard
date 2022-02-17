@@ -15,8 +15,8 @@ export async function postJobs(data) {
   return await request("job", "POST", data)
 }
 
-export async function putJobs(id, data) {
-  return await request(`job/${id}`, "PUT", data)
+export async function putJobs(data) {
+  return await request(`job/${data.id}`, "PUT", data.payload)
 }
 
 export async function updateJobStatus({ id, status }) {

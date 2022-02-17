@@ -36,15 +36,16 @@ export function JobForm() {
   }, [data])
 
   const onSubmit = (data) => {
+    setDisableSubmit(true)
     if (id) {
       update.mutate(
-        id,
-        { ...data, schedule: cronValue },
+        { id, payload: { ...data, schedule: cronValue } },
         {
           onSuccess: (data) => {
             navigate("/job")
           },
           onError: (error) => {
+            setDisableSubmit(false)
             setPostError(error)
           },
         }
@@ -57,6 +58,7 @@ export function JobForm() {
             navigate("/job")
           },
           onError: (error) => {
+            setDisableSubmit(false)
             setPostError(error)
           },
         }
@@ -75,6 +77,7 @@ export function JobForm() {
   )
   const [cronError, onCronError] = useState()
   const [postError, setPostError] = useState()
+  const [disableSubmit, setDisableSubmit] = useState(false)
 
   return (
     <div className="w-full border mx-auto p-4">
@@ -101,7 +104,6 @@ export function JobForm() {
                 }`}
                 type="text"
                 {...register("rssUrl", { required: true })}
-                name="rssUrl"
               />
               {errors.rssUrl?.type === "required" && (
                 <div className="text-red-500 text-left">
@@ -133,6 +135,7 @@ export function JobForm() {
           <div className="flex items-center">
             <div className="">
               <button
+                disabled={disableSubmit}
                 type="submit"
                 className="shadow bg-green-500 hover:bg-green-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
               >
