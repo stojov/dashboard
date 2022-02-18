@@ -117,7 +117,9 @@ export function JobList() {
                       <TrashIcon
                         className="w-7 sm:mx-2 mx-4 inline"
                         onClick={() => {
-                          jobDeleteMutation.mutate(job.id)
+                          if (window.confirm("Delete a job")) {
+                            jobDeleteMutation.mutate(job.id)
+                          }
                         }}
                       />
                     </td>
