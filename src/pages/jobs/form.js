@@ -36,7 +36,7 @@ export function JobForm() {
   }, [data])
 
   const onSubmit = (data) => {
-    setDisableSubmit(true)
+    setSubmitting(true)
     if (id) {
       update.mutate(
         { id, payload: { ...data, schedule: cronValue } },
@@ -45,8 +45,8 @@ export function JobForm() {
             navigate("/job")
           },
           onError: (error) => {
-            setDisableSubmit(false)
-            setPostError(error)
+            setSubmitting(false)
+            setPostError(error.message)
           },
         }
       )
@@ -58,8 +58,8 @@ export function JobForm() {
             navigate("/job")
           },
           onError: (error) => {
-            setDisableSubmit(false)
-            setPostError(error)
+            setSubmitting(false)
+            setPostError(error.message)
           },
         }
       )
@@ -77,7 +77,7 @@ export function JobForm() {
   )
   const [cronError, onCronError] = useState()
   const [postError, setPostError] = useState()
-  const [disableSubmit, setDisableSubmit] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
 
   return (
     <div className="w-full border mx-auto p-4">
@@ -97,6 +97,7 @@ export function JobForm() {
             </div>
             <div>
               <input
+                disabled={submitting}
                 className={`appearance-none border border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:${
                   errors.rssUrl?.type === "required"
                     ? "border-red-500"
@@ -121,6 +122,7 @@ export function JobForm() {
             <div>
               <div className="flex">
                 <Cron
+                  disabled={submitting}
                   value={cronValue}
                   setValue={customSetValue}
                   onError={onCronError}
@@ -135,7 +137,7 @@ export function JobForm() {
           <div className="flex items-center">
             <div className="">
               <button
-                disabled={disableSubmit}
+                disabled={submitting}
                 type="submit"
                 className="shadow bg-green-500 hover:bg-green-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
               >
