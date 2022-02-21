@@ -1,9 +1,9 @@
-name: Dashboard CI
+name: Deploy to s3
 
 on:
   push:
     branches:
-      - "master"
+      - 'master'
 
 jobs:
   build:
@@ -11,17 +11,18 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [15.x]
-    
+        node-version: [16.x]
+
     steps:
       - uses: actions/checkout@v1
       - run: npm install
       - run: npm run build
       - uses: jakejarvis/s3-sync-action@master
         with:
-          args: --acl public-read --follow-symlinks --delete
+          args: --acl public-read --delete
         env:
           AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          SOURCE_DIR: 'build'      
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          SOURCE_DIR: 'build'
