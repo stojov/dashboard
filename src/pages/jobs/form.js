@@ -33,6 +33,7 @@ export function JobForm() {
     } else {
       setCronValue(defaultCronValue)
     }
+    //eslint-disable-next-line
   }, [data])
 
   const onSubmit = (data) => {
