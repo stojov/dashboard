@@ -17,6 +17,8 @@ jobs:
       - uses: actions/checkout@v1
       - run: npm install
       - run: npm run build
+      env:
+        REACT_APP_API_URL: ${{ secrets.API_URL }}
       - uses: jakejarvis/s3-sync-action@master
         with:
           args: --acl public-read --delete
@@ -25,5 +27,4 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
-          REACT_APP_API_URL: ${{ secrets.API_URL }}
           SOURCE_DIR: 'build'
