@@ -92,7 +92,7 @@ export function JobList() {
 
                     <td className="px-6 text-left py-4 whitespace-nowrap">
                       <div className="text-sm font-medium text-gray-900">
-                        {job.rssUrl}
+                        <a href={job.rssUrl}>{job.rssUrl}</a>
                       </div>
                     </td>
 
