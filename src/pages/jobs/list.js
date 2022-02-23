@@ -52,6 +52,12 @@ export function JobList() {
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
+                    Name
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
                     Rss Url
                   </th>
                   <th
@@ -77,6 +83,13 @@ export function JobList() {
                     <td className="px-6 text-left py-4 whitespace-nowrap">
                       {index + 1}
                     </td>
+
+                    <td className="px-6 text-left py-4 whitespace-nowrap">
+                      <div className="text-sm font-medium text-gray-900">
+                        {job.name}
+                      </div>
+                    </td>
+
                     <td className="px-6 text-left py-4 whitespace-nowrap">
                       <div className="text-sm font-medium text-gray-900">
                         {job.rssUrl}

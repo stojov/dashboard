@@ -27,6 +27,7 @@ export function JobForm() {
   } = useForm()
 
   useEffect(() => {
+    setValue("name", data?.name)
     setValue("rssUrl", data?.rssUrl)
     if (data?.schedule) {
       setCronValue(data?.schedule)
@@ -93,6 +94,30 @@ export function JobForm() {
           <div className="flex items-center mb-6">
             <div className="">
               <label className="block text-gray-800 font-bold md:text-right mb-1 md:mb-0 pr-4">
+                Name:
+              </label>
+            </div>
+            <div>
+              <input
+                disabled={submitting}
+                className={`appearance-none border border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:${
+                  errors.rssUrl?.type === "required"
+                    ? "border-red-500"
+                    : "border-blue-400"
+                }`}
+                type="text"
+                {...register("name", { required: true })}
+              />
+              {errors.name?.type === "required" && (
+                <div className="text-red-500 text-left">
+                  This field is required
+                </div>
+              )}
+            </div>
+          </div>
+          <div className="flex items-center mb-6">
+            <div className="">
+              <label className="block text-gray-800 font-bold md:text-right mb-1 md:mb-0 pr-4">
                 Rss Url:
               </label>
             </div>
@@ -105,11 +130,23 @@ export function JobForm() {
                     : "border-blue-400"
                 }`}
                 type="text"
-                {...register("rssUrl", { required: true })}
+                {...register("rssUrl", {
+                  required: true,
+                  pattern: {
+                    value:
+                      /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*).[a-z]{2,3}/g,
+                    message: "Invalid url",
+                  },
+                })}
               />
               {errors.rssUrl?.type === "required" && (
                 <div className="text-red-500 text-left">
                   This field is required
+                </div>
+              )}
+              {errors.rssUrl && (
+                <div className="text-red-500 text-left">
+                  {errors.rssUrl.message}
                 </div>
               )}
             </div>
