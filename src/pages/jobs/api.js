@@ -8,14 +8,20 @@ export function fetchJob(id) {
   if (id) {
     return () => request(`job/${id}`)
   }
-  return ()=> Promise.resolve({})
+  return () => Promise.resolve({})
 }
 
 export async function postJobs(data) {
+  const schedule = data.schedule.split(" ")
+  schedule.splice(4, 0, "?")
+  data.schedule = schedule.join(" ")
   return await request("job", "POST", data)
 }
 
 export async function putJobs(data) {
+  const schedule = data.schedule.split(" ")
+  schedule.splice(4, 0, "?")
+  data.schedule = schedule.join(" ")
   return await request(`job/${data.id}`, "PUT", data.payload)
 }
 
