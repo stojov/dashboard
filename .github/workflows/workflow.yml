@@ -19,6 +19,7 @@ jobs:
       - run: npm run build
         env:
           REACT_APP_API_URL: ${{ secrets.API_URL }}
+          CI: ''
       - uses: jakejarvis/s3-sync-action@master
         with:
           args: --acl public-read --delete
