@@ -98,7 +98,7 @@ export function JobList() {
 
                     <td className="px-6 text-left py-4 whitespace-nowrap">
                       <div className="text-sm text-gray-900">
-                        {cronstrue.toString(job.schedule)}
+                        {cronstrue.toString(job.schedule.replace("? ", ""))}
                       </div>
                     </td>
                     <td className="px-6 text-left py-4 whitespace-nowrap">

@@ -30,7 +30,7 @@ export function JobForm() {
     setValue("name", data?.name)
     setValue("rssUrl", data?.rssUrl)
     if (data?.schedule) {
-      setCronValue(data?.schedule)
+      setCronValue(data.schedule.replace("? ", ""))
     } else {
       setCronValue(defaultCronValue)
     }

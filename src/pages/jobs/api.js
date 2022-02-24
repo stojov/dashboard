@@ -12,9 +12,7 @@ export function fetchJob(id) {
 }
 
 export async function postJobs(data) {
-  const schedule = data.schedule.split(" ")
-  schedule.splice(4, 0, "?")
-  data.schedule = schedule.join(" ")
+  data.schedule = "? " + data.schedule
   return await request("job", "POST", data)
 }
 
