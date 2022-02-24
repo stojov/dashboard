@@ -12,7 +12,7 @@ export function fetchJob(id) {
 }
 
 export async function postJobs(data) {
-  data.schedule = data.schedule + "*"
+  data.schedule = data.schedule + " *"
   return await request("job", "POST", data)
 }
 

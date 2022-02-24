@@ -79,7 +79,7 @@ export function JobList() {
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {data?.map((job, index) => {
-                  const schedule = job.schedule.slice(0, -1)
+                  const schedule = job.schedule.slice(0, -2)
                   return (
                     <tr key={index}>
                       <td className="px-6 text-left py-4 whitespace-nowrap">
