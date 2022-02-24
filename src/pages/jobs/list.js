@@ -78,66 +78,69 @@ export function JobList() {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {data?.map((job, index) => (
-                  <tr key={index}>
-                    <td className="px-6 text-left py-4 whitespace-nowrap">
-                      {index + 1}
-                    </td>
+                {data?.map((job, index) => {
+                  const schedule = job.schedule.slice(0, -1)
+                  return (
+                    <tr key={index}>
+                      <td className="px-6 text-left py-4 whitespace-nowrap">
+                        {index + 1}
+                      </td>
 
-                    <td className="px-6 text-left py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
-                        {job.name}
-                      </div>
-                    </td>
+                      <td className="px-6 text-left py-4 whitespace-nowrap">
+                        <div className="text-sm font-medium text-gray-900">
+                          {job.name}
+                        </div>
+                      </td>
 
-                    <td className="px-6 text-left py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
-                        <a href={job.rssUrl}>{job.rssUrl}</a>
-                      </div>
-                    </td>
+                      <td className="px-6 text-left py-4 whitespace-nowrap">
+                        <div className="text-sm font-medium text-gray-900">
+                          <a href={job.rssUrl}>{job.rssUrl}</a>
+                        </div>
+                      </td>
 
-                    <td className="px-6 text-left py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">
-                        {cronstrue.toString(job.schedule.replace("? ", ""))}
-                      </div>
-                    </td>
-                    <td className="px-6 text-left py-4 whitespace-nowrap">
-                      <div
-                        onClick={() =>
-                          jobStatusUpdateMutation.mutate({
-                            id: job.id,
-                            status: !job.active,
-                          })
-                        }
-                        className="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in"
-                      >
-                        <input
-                          onChange={() => {}}
-                          type="checkbox"
-                          className="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-2 appearance-none cursor-pointer delay-50"
-                          checked={job.active}
-                        />
-                        <label className="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
-                      </div>
-                    </td>
-                    <td className="px-6 text-left py-4 cursor-pointer">
-                      <PencilIcon
-                        className="w-7 sm:mx-2 mx-4 inline"
-                        onClick={() => {
-                          navigate(`/job/edit/${job.id}`)
-                        }}
-                      />
-                      <TrashIcon
-                        className="w-7 sm:mx-2 mx-4 inline"
-                        onClick={() => {
-                          if (window.confirm("Delete a job")) {
-                            jobDeleteMutation.mutate(job.id)
+                      <td className="px-6 text-left py-4 whitespace-nowrap">
+                        <div className="text-sm text-gray-900">
+                          {cronstrue.toString(schedule)}
+                        </div>
+                      </td>
+                      <td className="px-6 text-left py-4 whitespace-nowrap">
+                        <div
+                          onClick={() =>
+                            jobStatusUpdateMutation.mutate({
+                              id: job.id,
+                              status: !job.active,
+                            })
                           }
-                        }}
-                      />
-                    </td>
-                  </tr>
-                ))}
+                          className="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in"
+                        >
+                          <input
+                            onChange={() => {}}
+                            type="checkbox"
+                            className="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-2 appearance-none cursor-pointer delay-50"
+                            checked={job.active}
+                          />
+                          <label className="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+                        </div>
+                      </td>
+                      <td className="px-6 text-left py-4 cursor-pointer">
+                        <PencilIcon
+                          className="w-7 sm:mx-2 mx-4 inline"
+                          onClick={() => {
+                            navigate(`/job/edit/${job.id}`)
+                          }}
+                        />
+                        <TrashIcon
+                          className="w-7 sm:mx-2 mx-4 inline"
+                          onClick={() => {
+                            if (window.confirm("Delete a job")) {
+                              jobDeleteMutation.mutate(job.id)
+                            }
+                          }}
+                        />
+                      </td>
+                    </tr>
+                  )
+                })}
               </tbody>
             </table>
           </div>
