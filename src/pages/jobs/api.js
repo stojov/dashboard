@@ -12,7 +12,11 @@ export function fetchJob(id) {
 }
 
 export async function postJobs(data) {
-  data.schedule = data.schedule + " *"
+  let schedule = data.schedule.split(" ")
+  if (schedule[2] === "*") {
+    schedule[2] = "?"
+  }
+  data.schedule = schedule.join(" ") + " *"
   return await request("job", "POST", data)
 }
 

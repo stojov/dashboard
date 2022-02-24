@@ -79,7 +79,8 @@ export function JobList() {
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {data?.map((job, index) => {
-                  const schedule = job.schedule.slice(0, -2)
+                  let schedule = job.schedule.slice(0, -2)
+                  schedule = schedule.replace('?', '*')
                   return (
                     <tr key={index}>
                       <td className="px-6 text-left py-4 whitespace-nowrap">

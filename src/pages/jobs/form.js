@@ -30,7 +30,8 @@ export function JobForm() {
     setValue("name", data?.name)
     setValue("rssUrl", data?.rssUrl)
     if (data?.schedule) {
-      const schedule = data.schedule.slice(0, -2)
+      let schedule = data.schedule.slice(0, -2)
+      schedule = schedule.replace('?', '*')
       setCronValue(schedule)
     } else {
       setCronValue(defaultCronValue)
