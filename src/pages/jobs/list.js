@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import Alert from "../../components/Alert"
 import { deleteJob, fetchJobs, updateJobStatus } from "./api"
 import cronstrue from "cronstrue"
-import { PencilIcon, TrashIcon } from "@heroicons/react/outline"
+import { TrashIcon } from "@heroicons/react/outline"
 
 export function JobList() {
   const navigate = useNavigate()
@@ -18,11 +18,11 @@ export function JobList() {
     },
   })
 
-  const jobStatusUpdateMutation = useMutation(updateJobStatus, {
-    onSuccess: () => {
-      queryClient.invalidateQueries()
-    },
-  })
+  // const jobStatusUpdateMutation = useMutation(updateJobStatus, {
+  //   onSuccess: () => {
+  //     queryClient.invalidateQueries()
+  //   },
+  // })
 
   return (
     <div className="w-full">
@@ -66,12 +66,12 @@ export function JobList() {
                   >
                     Schedule
                   </th>
-                  <th
+                  {/* <th
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
                     Status
-                  </th>
+                  </th> */}
                   <th scope="col" className="relative px-6 py-3">
                     <span className="sr-only">Edit</span>
                   </th>
@@ -80,7 +80,7 @@ export function JobList() {
               <tbody className="bg-white divide-y divide-gray-200">
                 {data?.map((job, index) => {
                   let schedule = job.schedule.slice(0, -2)
-                  schedule = schedule.replace('?', '*')
+                  schedule = schedule.replace("?", "*")
                   return (
                     <tr key={index}>
                       <td className="px-6 text-left py-4 whitespace-nowrap">
@@ -104,7 +104,7 @@ export function JobList() {
                           {cronstrue.toString(schedule)}
                         </div>
                       </td>
-                      <td className="px-6 text-left py-4 whitespace-nowrap">
+                      {/* <td className="px-6 text-left py-4 whitespace-nowrap">
                         <div
                           onClick={() =>
                             jobStatusUpdateMutation.mutate({
@@ -122,14 +122,14 @@ export function JobList() {
                           />
                           <label className="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
                         </div>
-                      </td>
+                      </td> */}
                       <td className="px-6 text-left py-4 cursor-pointer">
-                        <PencilIcon
+                        {/* <PencilIcon
                           className="w-7 sm:mx-2 mx-4 inline"
                           onClick={() => {
                             navigate(`/job/edit/${job.id}`)
                           }}
-                        />
+                        /> */}
                         <TrashIcon
                           className="w-7 sm:mx-2 mx-4 inline"
                           onClick={() => {
